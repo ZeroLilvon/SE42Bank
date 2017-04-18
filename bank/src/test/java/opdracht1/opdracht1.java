@@ -36,30 +36,41 @@ public class opdracht1
         emf = Persistence.createEntityManagerFactory("bankPU");
         em = emf.createEntityManager();
         DC = new DatabaseCleaner(em);
+        
     }
     
     @After
-    public void tearDown()
+    public void tearDown() throws SQLException
     {
+        DC.clean();
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
+ 
+    /*
+        INSERT INTO ACCOUNT (ACCOUNTNR, BALANCE, THRESHOLD) VALUES (?, ?, ?) bind => [111, 0, 0]
+        SELECT LAST_INSERT_ID()  AccountId: 1
+        DELETE FROM ACCOUNT
+    */
     @Test
     public void Test1() 
     {
-       
-        
         Account account = new Account(111L);
         em.getTransaction().begin();
         em.persist(account);
-        //TODO: verklaar en pas eventueel aan
+        // Not yet commited so no accounts to return (It will be Null)
         assertNull(account.getId());
         em.getTransaction().commit();
         System.out.println("AccountId: " + account.getId());
-        //TODO: verklaar en pas eventueel aan
+        // Has been comittted so there is more than 0 accounts to get
         assertTrue(account.getId() > 0L);
 
     }
 }
+
+
+/*
+        1.	Wat is de waarde van asserties en printstatements? Corrigeer verkeerde asserties zodat de test ‘groen’ wordt.
+        2.	Welke SQL statements worden gegenereerd?
+        3.	Wat is het eindresultaat in de database?
+        4.	Verklaring van bovenstaande drie observaties.
+*/
