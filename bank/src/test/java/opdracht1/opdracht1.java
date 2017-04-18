@@ -63,8 +63,47 @@ public class opdracht1
         System.out.println("AccountId: " + account.getId());
         // Has been comittted so there is more than 0 accounts to get
         assertTrue(account.getId() > 0L);
+    }
+    
+    /*
+        No Querries have been run
+    */
+    @Test
+    public void Test2() 
+    {
+        Account account = new Account(111L);
+        em.getTransaction().begin();
+        em.persist(account);
+        assertNull(account.getId());
+        em.getTransaction().rollback();
+        assertNull(account.getId());
 
     }
+    
+    /*
+        INSERT INTO ACCOUNT (ACCOUNTNR, BALANCE, THRESHOLD) VALUES (?, ?, ?) bind => [111, 0, 0]
+        SELECT LAST_INSERT_ID()
+        DELETE FROM ACCOUNT
+    */
+    @Test
+    public void Test3() 
+    {
+        Long expected = -100L;
+        Account account = new Account(111L);
+        account.setId(expected);
+        em.getTransaction().begin();
+        em.persist(account);
+        // Querry not yet send to DB so ID is still -100. (Auto-increment hasnt changed anything yet)
+        assertEquals(expected, account.getId());
+        em.flush();
+        // Querry sent to databse. Since ID is not sent to DB Auto-increment changed ID from -100 to correct value.
+        assertNotEquals(expected, account.getId());
+        em.getTransaction().commit();
+        // Changes have been saved (Commited)
+    }
+    
+    
+
 }
 
 
