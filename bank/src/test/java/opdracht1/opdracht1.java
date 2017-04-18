@@ -102,8 +102,73 @@ public class opdracht1
         // Changes have been saved (Commited)
     }
     
-    
+    /*
+        INSERT INTO ACCOUNT (ACCOUNTNR, BALANCE, THRESHOLD) VALUES (?, ?, ?) bind => [114, 400, 0]
+        SELECT LAST_INSERT_ID()
+        SELECT ID, ACCOUNTNR, BALANCE, THRESHOLD FROM ACCOUNT WHERE (ID = ?) bind => [33]
+        DELETE FROM ACCOUNT
+    */
+    @Test
+    public void Test4() 
+    {
+        Long expectedBalance = 400L;
+        Account account = new Account(114L);
+        em.getTransaction().begin();
+        em.persist(account);
+        account.setBalance(expectedBalance);
+        em.getTransaction().commit();
+        assertEquals(expectedBalance, account.getBalance());
+        // Commits new user with balance of 400 to DB. Gets latest added and checks Balance.
+        Long cid = account.getId();
+        account = null;
+        EntityManager em2 = emf.createEntityManager();
+        em2.getTransaction().begin();
+        Account found = em2.find(Account.class, cid);
+        // Select User with the ID of preveous insert. Gets balance and checks it.
+        assertEquals(expectedBalance, found.getBalance());
 
+    }
+    
+    /*
+        INSERT INTO ACCOUNT (ACCOUNTNR, BALANCE, THRESHOLD) VALUES (?, ?, ?) bind => [114, 400, 0]
+        SELECT LAST_INSERT_ID()
+        SELECT ID, ACCOUNTNR, BALANCE, THRESHOLD FROM ACCOUNT WHERE (ID = ?) bind => [109] 
+        UPDATE ACCOUNT SET BALANCE = ? WHERE (ID = ?) bind => [3313, 109] 
+        SELECT ID, ACCOUNTNR, BALANCE, THRESHOLD FROM ACCOUNT WHERE (ID = ?) bind => [109] 
+        DELETE FROM ACCOUNT
+    */
+    @Test
+    public void Test5() 
+    {
+        Long expectedBalance = 400L;
+        Account account = new Account(114L);
+        em.getTransaction().begin();
+        em.persist(account);
+        account.setBalance(expectedBalance);
+        em.getTransaction().commit();
+        assertEquals(expectedBalance, account.getBalance());
+        // Commits new user with balance of 400 to DB. Gets latest added and checks Balance.
+        Long cid = account.getId();
+        
+        EntityManager em2 = emf.createEntityManager();
+        em2.getTransaction().begin();
+        Account found = em2.find(Account.class, cid);
+        // Select User with the ID of preveous insert. Gets balance and checks it.
+        assertEquals(expectedBalance, found.getBalance());
+        em2.getTransaction().commit();
+        
+        // Starts first transaction again and changes balance
+        em.getTransaction().begin();
+        account.setBalance(3313L);
+        em.getTransaction().commit();
+        
+        // Refresh found from DB (Gets the account again)
+        em2.refresh(found);
+        assertEquals(3313L, (long)found.getBalance());
+
+    }
+
+    
 }
 
 
