@@ -6,6 +6,7 @@
 package opdracht1;
 
 import bank.domain.Account;
+import java.sql.SQLException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,14 +23,19 @@ import util.DatabaseCleaner;
 public class opdracht1
 {
     DatabaseCleaner DC;
+    EntityManagerFactory emf;
+    EntityManager em;
     
     public opdracht1()
     {
     }
     
     @Before
-    public void setUp()
+    public void setUp() throws SQLException
     {
+        emf = Persistence.createEntityManagerFactory("bankPU");
+        em = emf.createEntityManager();
+        DC = new DatabaseCleaner(em);
     }
     
     @After
@@ -43,8 +49,7 @@ public class opdracht1
     @Test
     public void Test1() 
     {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("bankPU");
-        EntityManager em = emf.createEntityManager();
+       
         
         Account account = new Account(111L);
         em.getTransaction().begin();
