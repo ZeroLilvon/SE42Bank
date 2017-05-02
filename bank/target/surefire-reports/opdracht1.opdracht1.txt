@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: opdracht1.opdracht1
 -------------------------------------------------------------------------------
-Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.529 sec
+Tests run: 8, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.39 sec
