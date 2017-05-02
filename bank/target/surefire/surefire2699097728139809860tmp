@@ -1,0 +1,8 @@
+#surefire
+#Tue May 02 13:56:31 CEST 2017
+maven.ext.class.path=D\:\\Downloads 2.0\\NetBeans\\NetBeans 8.1\\java\\maven-nblib\\netbeans-eventspy.jar
+user.dir=D\:\\Downloads 2.0\\School\\Jaar 2\\P8\\SE-42\\SE42Bank\\bank
+file.encoding=UTF-8
+localRepository=C\:\\Users\\Riccardo\\.m2\\repository
+basedir=D\:\\Downloads 2.0\\School\\Jaar 2\\P8\\SE-42\\SE42Bank\\bank
+test=opdracht1.opdracht1

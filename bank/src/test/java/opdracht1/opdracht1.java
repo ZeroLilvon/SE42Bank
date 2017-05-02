@@ -5,6 +5,7 @@
  */
 package opdracht1;
 
+import bank.dao.AccountDAO;
 import bank.domain.Account;
 import java.sql.SQLException;
 import javax.persistence.EntityManager;
@@ -167,8 +168,149 @@ public class opdracht1
         assertEquals(3313L, (long)found.getBalance());
 
     }
-
     
+    @Test
+    public void Test6() 
+    {
+        Account acc = new Account(1L);
+        Account acc2 = new Account(2L);
+        Account acc9 = new Account(9L);
+
+        // scenario 1
+        Long balance1 = 100L;
+        em.getTransaction().begin();
+        em.persist(acc);
+        acc.setBalance(balance1);
+        em.getTransaction().commit();
+        //TODO: voeg asserties toe om je verwachte waarde van de attributen te verifieren.
+        //TODO: doe dit zowel voor de bovenstaande java objecten als voor opnieuw bij de entitymanager opgevraagde objecten met overeenkomstig Id.
+        assertEquals(100L, (long)acc.getBalance());
+        Long cid = acc.getId();
+        
+        EntityManager em2 = emf.createEntityManager();
+        em2.getTransaction().begin();
+        Account found = em2.find(Account.class, cid);
+        assertEquals(100L, (long)found.getBalance());
+        em2.getTransaction().commit();
+
+
+        // scenario 2
+        Long balance2a = 211L;
+        acc = new Account(2L);
+        em.getTransaction().begin();
+        acc9 = em.merge(acc);
+        acc.setBalance(balance2a);
+        acc9.setBalance(balance2a+balance2a);
+        em.getTransaction().commit();
+        assertEquals(211L,(long)acc.getBalance());
+        assertEquals(422L, (long)acc9.getBalance());
+        cid = acc9.getId();
+        
+        em2.getTransaction().begin();
+        found = em2.find(Account.class, cid);
+        assertEquals(422L, (long)found.getBalance());
+        em2.getTransaction().commit();
+        //TODO: voeg asserties toe om je verwachte waarde van de attributen te verifiëren.
+        //TODO: doe dit zowel voor de bovenstaande java objecten als voor opnieuw bij de entitymanager opgevraagde objecten met overeenkomstig Id. 
+        // HINT: gebruik acccountDAO.findByAccountNr
+        
+
+
+        // scenario 3
+        Long balance3b = 322L;
+        Long balance3c = 333L;
+        acc = new Account(3L);
+        em.getTransaction().begin();
+        acc2 = em.merge(acc);
+        assertFalse(em.contains(acc)); // verklaar
+        assertTrue(em.contains(acc2)); // verklaar
+        assertNotEquals(acc,acc2);  //verklaar
+        acc2.setBalance(balance3b);
+        acc.setBalance(balance3c);
+        em.getTransaction().commit() ;
+        
+        assertEquals(333L,(long)acc.getBalance());
+        assertEquals(322L, (long)acc2.getBalance());
+        cid = acc2.getId();
+        
+        em2.getTransaction().begin();
+        found = em2.find(Account.class, cid);
+        assertEquals(322L, (long)found.getBalance());
+        em2.getTransaction().commit();
+        //TODO: voeg asserties toe om je verwachte waarde van de attributen te verifiëren.
+        //TODO: doe dit zowel voor de bovenstaande java objecten als voor opnieuw bij de entitymanager opgevraagde objecten met overeenkomstig Id.
+
+
+        // scenario 4
+        Account account = new Account(114L) ;
+        account.setBalance(450L) ;
+        EntityManager em = emf.createEntityManager() ;
+        em.getTransaction().begin() ;
+        em.persist(account) ;
+        em.getTransaction().commit() ;
+
+        Account account2 = new Account(114L) ;
+        Account tweedeAccountObject = account2 ;
+        tweedeAccountObject.setBalance(650l) ;
+        assertEquals((Long)650L,account2.getBalance()) ;  //verklaar
+        account2.setId(account.getId()) ;
+        em.getTransaction().begin() ;
+        account2 = em.merge(account2) ;
+        assertSame(account,account2) ;  //verklaar
+        assertTrue(em.contains(account2)) ;  //verklaar
+        assertFalse(em.contains(tweedeAccountObject)) ;  //verklaar
+        tweedeAccountObject.setBalance(850l) ;
+        assertEquals((Long)650L,account.getBalance()) ;  //verklaar
+        assertEquals((Long)650L,account2.getBalance()) ;  //verklaar
+        em.getTransaction().commit() ;
+        em.close() ;
+
+    }
+    
+     
+    @Test
+    public void Test7() 
+    {
+        Account acc1 = new Account(77L);
+        em.getTransaction().begin();
+        em.persist(acc1);
+        em.getTransaction().commit();
+        //Database bevat nu een account.
+
+        // scenario 1        
+        Account accF1;
+        Account accF2;
+        accF1 = em.find(Account.class, acc1.getId());
+        accF2 = em.find(Account.class, acc1.getId());
+        assertSame(accF1, accF2);
+
+        // scenario 2        
+        accF1 = em.find(Account.class, acc1.getId());
+        em.clear();
+        accF2 = em.find(Account.class, acc1.getId());
+        assertNotSame(accF1, accF2);
+        // Clear:  causes all managed entities to become detached. 
+        // So it for accF2 it has to reatach the entity causing it to be on a different memory location
+
+    }
+
+    @Test
+    public void Test8() 
+    {
+        Account acc1 = new Account(88L);
+        em.getTransaction().begin();
+        em.persist(acc1);
+        em.getTransaction().commit();
+        Long id = acc1.getId();
+        //Database bevat nu een account.
+
+        em.remove(acc1);
+        assertEquals(id, acc1.getId()); // acc1 is still saved localy       
+        Account accFound = em.find(Account.class, id);
+        assertNull(accFound);
+        // The account no longer exists in the DB so it cant be found and returns null.
+
+    }
 }
 
 
