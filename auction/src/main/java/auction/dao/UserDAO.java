@@ -42,4 +42,6 @@ public interface UserDAO {
      * @param user - entity instance
      */
     void remove(User user);
+    
+    void removeAll();
 }

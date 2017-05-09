@@ -50,4 +50,10 @@ public class UserDAOCollectionImpl implements UserDAO {
     public void remove(User user) {
         users.remove(user.getEmail());
     }
+
+    @Override
+    public void removeAll()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

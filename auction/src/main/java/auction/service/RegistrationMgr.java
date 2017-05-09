@@ -30,14 +30,18 @@ public class RegistrationMgr {
             return null;
         }
         EntityManager em = emf.createEntityManager();
-        UserDAO userDAO = new UserDAOJPAImpl(em);
         User user = null;
         try
         {
-        user = userDAO.findByEmail(email);
-        if (user != null) {
-            return user;
-        }
+            em.getTransaction().begin();
+            UserDAO userDAO = new UserDAOJPAImpl(em);
+            
+            user = userDAO.findByEmail(email);
+            if (user != null) 
+            {
+                return user;
+            }
+            
             user = new User(email);
             userDAO.create(user);
             em.getTransaction().commit();
@@ -64,10 +68,12 @@ public class RegistrationMgr {
         User user = null;
         
         EntityManager em = emf.createEntityManager();
-        UserDAO userDAO = new UserDAOJPAImpl(em);
+        
         
         try
         {
+            em.getTransaction().begin();
+            UserDAO userDAO = new UserDAOJPAImpl(em);
             user = userDAO.findByEmail(email);
             em.getTransaction().commit();
         }
@@ -90,10 +96,11 @@ public class RegistrationMgr {
         List<User> users = null;
         
         EntityManager em = emf.createEntityManager();
-        UserDAO userDAO = new UserDAOJPAImpl(em);
         
         try
         {
+            em.getTransaction().begin();
+            UserDAO userDAO = new UserDAOJPAImpl(em);
             users = userDAO.findAll();
             em.getTransaction().commit();
         }
@@ -106,5 +113,25 @@ public class RegistrationMgr {
             em.close();
         }
         return users;
+    }
+    
+    public void removeAll()
+    {
+        EntityManager em = emf.createEntityManager();
+        try
+        {
+            em.getTransaction().begin();
+            UserDAO userDAO = new UserDAOJPAImpl(em);
+            userDAO.removeAll();
+            em.getTransaction().commit();
+        }
+        catch (Exception ex)
+        {
+            em.getTransaction().rollback();
+        }
+        finally
+        {
+            em.close();
+        }
     }
 }

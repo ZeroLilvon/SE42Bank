@@ -16,6 +16,11 @@ public class User {
     @Id  
     private String email;
 
+    public  User()
+    {
+        
+    }
+    
     public User(String email) {
         this.email = email;
 
@@ -23,5 +28,12 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+    
+    @Override
+    public boolean equals(Object obj) 
+    {
+        User u = (User) obj;
+        return this.email.equals(u.getEmail());
     }
 }
