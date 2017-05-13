@@ -47,4 +47,6 @@ public interface ItemDAO {
      * @param item - entity instance
      */
     void remove(Item item);
+    
+    void removeAll();
 }

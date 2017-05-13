@@ -15,15 +15,15 @@ import auction.domain.User;
 
 public class SellerMgrTest {
 
-    private AuctionMgr auctionMgr;
-    private RegistrationMgr registrationMgr;
-    private SellerMgr sellerMgr;
+    private AuctionMgr auctionMgr = new AuctionMgr();
+    private RegistrationMgr registrationMgr = new RegistrationMgr();
+    private SellerMgr sellerMgr = new SellerMgr();
 
     @Before
-    public void setUp() throws Exception {
-        registrationMgr = new RegistrationMgr();
-        auctionMgr = new AuctionMgr();
-        sellerMgr = new SellerMgr();
+    public void setUp() throws Exception 
+    {
+       sellerMgr.removeAll();
+       registrationMgr.removeAll();
     }
 
     /**

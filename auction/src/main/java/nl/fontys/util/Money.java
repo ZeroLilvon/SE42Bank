@@ -2,7 +2,10 @@ package nl.fontys.util;
 
 import java.io.*;
 import java.text.*;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Money implements Serializable, Comparable {
 
 	private static final long serialVersionUID = 1L;
@@ -92,9 +95,9 @@ public class Money implements Serializable, Comparable {
 	public static Money negativeValueOf(Money m) {
 		return new Money (-m.cents,m.currency);
 	}
-
+        @Column
 	private String currency;
-
+        @Column
 	private long cents;
 
 	public int compareTo(Object o) {

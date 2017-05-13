@@ -13,12 +13,14 @@ import javax.persistence.Persistence;
 
 public class RegistrationMgrTest {
 
-    //private EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
+    private AuctionMgr auctionMgr = new AuctionMgr();
     private RegistrationMgr registrationMgr = new RegistrationMgr();
+    private SellerMgr sellerMgr = new SellerMgr();
 
     @Before
     public void setUp() throws Exception 
     {
+        sellerMgr.removeAll();
         registrationMgr.removeAll();
     }
 //
