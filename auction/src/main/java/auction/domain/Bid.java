@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import nl.fontys.util.FontysTime;
 import nl.fontys.util.Money;
 
@@ -22,15 +23,23 @@ public class Bid {
     private User buyer;
     @Embedded
     private Money amount;
+    @OneToOne (mappedBy = "highest") 
+    private Item madeFor;
 
     public Bid()
     {
         
     }
+
+    public Item getMadeFor()
+    {
+        return madeFor;
+    }
     
-    public Bid(User buyer, Money amount) {
+    public Bid(User buyer, Money amount, Item item) {
        this.buyer = buyer;
        this.amount = amount;
+       this.madeFor = item;
     }
 
     public FontysTime getTime() {

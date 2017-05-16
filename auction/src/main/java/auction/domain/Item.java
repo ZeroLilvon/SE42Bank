@@ -26,13 +26,12 @@ public class Item implements Comparable {
     @Id  
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne 
+    @ManyToOne
     private User seller;
     @Embedded
     private Category category;
     private String description;
-    @ManyToOne (cascade = {CascadeType.PERSIST})
-    //@JoinColumn(nullable = true)
+    @OneToOne (cascade = {CascadeType.PERSIST})
     private Bid highest = null;
 
     public Item()
@@ -41,9 +40,15 @@ public class Item implements Comparable {
     }
     
     public Item(User seller, Category category, String description) {
-        this.seller = seller;
         this.category = category;
         this.description = description;
+        this.seller = seller;
+        seller.addItem(this);
+    }
+
+    public void setSeller(User seller)
+    {
+        this.seller = seller;
     }
 
     public Long getId() {
@@ -70,7 +75,7 @@ public class Item implements Comparable {
         if (highest != null && highest.getAmount().compareTo(amount) >= 0) {
             return null;
         }
-        highest = new Bid(buyer, amount);
+        highest = new Bid(buyer, amount, this);
         return highest;
     }
 
@@ -79,13 +84,17 @@ public class Item implements Comparable {
         return -1;
     }
 
-    public boolean equals(Object o) {
-        //TODO
-        return false;
+    @Override
+    public boolean equals(Object o) 
+    {
+        
+        Item i  = (Item) o;
+        return this.id == i.getId();
     }
 
-    public int hashCode() {
-        //TODO
-        return 0;
+    @Override
+    public int hashCode() 
+    {
+        return seller.getEmail().hashCode() + description.hashCode();
     }
 }
