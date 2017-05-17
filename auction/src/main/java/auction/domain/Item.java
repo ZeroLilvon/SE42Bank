@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -21,6 +23,7 @@ import nl.fontys.util.Money;
     @NamedQuery(name = "Item.count", query = "select count(i) from Item as i"),
     @NamedQuery(name = "Item.findByDescription", query = "select i from Item as i where i.description = :itemDescription")
 })
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Item implements Comparable {
 
     @Id  
@@ -87,7 +90,6 @@ public class Item implements Comparable {
     @Override
     public boolean equals(Object o) 
     {
-        
         Item i  = (Item) o;
         return this.id == i.getId();
     }

@@ -5,7 +5,9 @@ import auction.dao.ItemDAOJPAImpl;
 import auction.dao.UserDAO;
 import auction.dao.UserDAOJPAImpl;
 import auction.domain.Category;
+import auction.domain.Furniture;
 import auction.domain.Item;
+import auction.domain.Painting;
 import auction.domain.User;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -37,6 +39,52 @@ public class SellerMgr {
             em.getTransaction().begin();
             ItemDAO itemDAO = new ItemDAOJPAImpl(em);
             item = new Item(seller, cat, description);
+            itemDAO.create(item);
+            em.getTransaction().commit();
+        }
+        catch (Exception ex)
+        {
+            em.getTransaction().rollback();
+        }
+        finally
+        {
+            em.close();
+        }
+        return item;
+    }
+    
+    public Item offerFurniture(User seller, Category cat, String description, String material)
+    {
+        EntityManager em = emf.createEntityManager();
+        Item item = null;
+        try
+        {
+            em.getTransaction().begin();
+            ItemDAO itemDAO = new ItemDAOJPAImpl(em);
+            item = new Furniture(material, seller, cat, description);
+            itemDAO.create(item);
+            em.getTransaction().commit();
+        }
+        catch (Exception ex)
+        {
+            em.getTransaction().rollback();
+        }
+        finally
+        {
+            em.close();
+        }
+        return item;
+    }
+    
+    public Item offerPainting(User seller, Category cat, String description, String painter, String title)
+    {
+        EntityManager em = emf.createEntityManager();
+        Item item = null;
+        try
+        {
+            em.getTransaction().begin();
+            ItemDAO itemDAO = new ItemDAOJPAImpl(em);
+            item = new Painting(title, painter, seller, cat, description);
             itemDAO.create(item);
             em.getTransaction().commit();
         }

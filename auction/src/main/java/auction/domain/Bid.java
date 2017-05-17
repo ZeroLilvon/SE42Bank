@@ -53,4 +53,11 @@ public class Bid {
     public Money getAmount() {
         return amount;
     }
+    
+    @Override
+    public boolean equals(Object o) 
+    {
+        Bid b = (Bid) o;
+        return this.madeFor.equals(b.getMadeFor()) && this.buyer.equals(b.getBuyer());
+    }
 }
