@@ -5,6 +5,7 @@
  */
 package clientTest;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -14,6 +15,7 @@ import static org.junit.Assert.*;
 import webservice.Bid;
 import webservice.Category;
 import webservice.Item;
+import webservice.Money;
 import webservice.User;
 
 /**
@@ -63,13 +65,30 @@ public class ClientsideTest {
         // Add an item, check description and category
         Category mycat = new Category();
         mycat.setDescription("exampleCat");
-        Item i = offerItem(u, mycat, "A bar of soap");
-        assertTrue("A bar of soap".equals(i.getDescription()));
+        String desc = "A bar of soap";
+        Item i = offerItem(u, mycat, desc);
+        assertTrue(desc.equals(i.getDescription()));
         assertTrue("exampleCat".equals(i.getCategory().getDescription()));
         
         // Confirm item has been added
         Item i2 = getItem(i.getId());
         System.out.println(i2.getDescription());
+        
+        // Add another item
+        offerItem(u, mycat, desc);
+        // Retrieve items
+        List<Item> itemList = findItemByDescription(desc);
+        assertEquals(2, itemList.size());
+        assertTrue(itemList.get(0).getDescription().equals(itemList.get(1).getDescription()));
+        
+        // place a bid
+        Money m = new Money();
+        m.setCurrency("undefined");
+        Bid b = newBid(i, u, m);
+        System.out.println(b.getBuyer());
+        
+        // Revoke an item, test should return false because item has a bid
+        assertFalse(revokeItem(i));
     }
 
     // <editor-fold defaultstate="collapsed" desc=" Registration section ">
