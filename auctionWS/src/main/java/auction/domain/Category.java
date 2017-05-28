@@ -22,7 +22,7 @@ public class Category{
         description = "undefined";
     }
 
-    // over here
+    
     public Category(String description) {
         this.description = description;
     }

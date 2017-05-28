@@ -4,9 +4,14 @@ import auction.domain.Bid;
 import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
+import java.sql.SQLException;
 import java.util.List;
 import javax.jws.WebService;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import nl.fontys.util.Money;
+import util.DatabaseCleaner;
 
 /**
  *
@@ -18,6 +23,11 @@ public class WebAuction {
     private Registration registration = new Registration();
     private Auction auction = new Auction();
     
+    
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("auctionPU");
+    private EntityManager em = emf.createEntityManager();
+    private DatabaseCleaner DC = new DatabaseCleaner(em);
+
     public User registerUser(String email){      
         return registration.registerUser(email);
     }
@@ -48,5 +58,14 @@ public class WebAuction {
     
     public String getBar(){
         return "foo";
+    }
+    
+    public void requestTestCleanup(){
+        try {
+            DC.clean();
+        }
+        catch (SQLException ex) {
+            System.out.println(ex);
+        }
     }
 }
