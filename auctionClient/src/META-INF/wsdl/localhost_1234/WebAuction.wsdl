@@ -4,12 +4,6 @@
 <xsd:import namespace="http://webservice/" schemaLocation="http://localhost:1234/WebAuction?xsd=1"></xsd:import>
 </xsd:schema>
 </types>
-<message name="registerUser">
-<part name="parameters" element="tns:registerUser"></part>
-</message>
-<message name="registerUserResponse">
-<part name="parameters" element="tns:registerUserResponse"></part>
-</message>
 <message name="getUser">
 <part name="parameters" element="tns:getUser"></part>
 </message>
@@ -22,17 +16,43 @@
 <message name="getItemResponse">
 <part name="parameters" element="tns:getItemResponse"></part>
 </message>
+<message name="registerUser">
+<part name="parameters" element="tns:registerUser"></part>
+</message>
+<message name="registerUserResponse">
+<part name="parameters" element="tns:registerUserResponse"></part>
+</message>
+<message name="findItemByDescription">
+<part name="parameters" element="tns:findItemByDescription"></part>
+</message>
+<message name="findItemByDescriptionResponse">
+<part name="parameters" element="tns:findItemByDescriptionResponse"></part>
+</message>
+<message name="newBid">
+<part name="parameters" element="tns:newBid"></part>
+</message>
+<message name="newBidResponse">
+<part name="parameters" element="tns:newBidResponse"></part>
+</message>
 <message name="getBar">
 <part name="parameters" element="tns:getBar"></part>
 </message>
 <message name="getBarResponse">
 <part name="parameters" element="tns:getBarResponse"></part>
 </message>
+<message name="revokeItem">
+<part name="parameters" element="tns:revokeItem"></part>
+</message>
+<message name="revokeItemResponse">
+<part name="parameters" element="tns:revokeItemResponse"></part>
+</message>
+<message name="offerItem">
+<part name="parameters" element="tns:offerItem"></part>
+</message>
+<message name="offerItemResponse">
+<part name="parameters" element="tns:offerItemResponse"></part>
+</message>
 <portType name="WebAuction">
-<operation name="registerUser">
-<input wsam:Action="http://webservice/WebAuction/registerUserRequest" message="tns:registerUser"></input>
-<output wsam:Action="http://webservice/WebAuction/registerUserResponse" message="tns:registerUserResponse"></output>
-</operation>
 <operation name="getUser">
 <input wsam:Action="http://webservice/WebAuction/getUserRequest" message="tns:getUser"></input>
 <output wsam:Action="http://webservice/WebAuction/getUserResponse" message="tns:getUserResponse"></output>
@@ -41,22 +61,33 @@
 <input wsam:Action="http://webservice/WebAuction/getItemRequest" message="tns:getItem"></input>
 <output wsam:Action="http://webservice/WebAuction/getItemResponse" message="tns:getItemResponse"></output>
 </operation>
+<operation name="registerUser">
+<input wsam:Action="http://webservice/WebAuction/registerUserRequest" message="tns:registerUser"></input>
+<output wsam:Action="http://webservice/WebAuction/registerUserResponse" message="tns:registerUserResponse"></output>
+</operation>
+<operation name="findItemByDescription">
+<input wsam:Action="http://webservice/WebAuction/findItemByDescriptionRequest" message="tns:findItemByDescription"></input>
+<output wsam:Action="http://webservice/WebAuction/findItemByDescriptionResponse" message="tns:findItemByDescriptionResponse"></output>
+</operation>
+<operation name="newBid">
+<input wsam:Action="http://webservice/WebAuction/newBidRequest" message="tns:newBid"></input>
+<output wsam:Action="http://webservice/WebAuction/newBidResponse" message="tns:newBidResponse"></output>
+</operation>
 <operation name="getBar">
 <input wsam:Action="http://webservice/WebAuction/getBarRequest" message="tns:getBar"></input>
 <output wsam:Action="http://webservice/WebAuction/getBarResponse" message="tns:getBarResponse"></output>
 </operation>
+<operation name="revokeItem">
+<input wsam:Action="http://webservice/WebAuction/revokeItemRequest" message="tns:revokeItem"></input>
+<output wsam:Action="http://webservice/WebAuction/revokeItemResponse" message="tns:revokeItemResponse"></output>
+</operation>
+<operation name="offerItem">
+<input wsam:Action="http://webservice/WebAuction/offerItemRequest" message="tns:offerItem"></input>
+<output wsam:Action="http://webservice/WebAuction/offerItemResponse" message="tns:offerItemResponse"></output>
+</operation>
 </portType>
 <binding name="WebAuctionPortBinding" type="tns:WebAuction">
 <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"></soap:binding>
-<operation name="registerUser">
-<soap:operation soapAction=""></soap:operation>
-<input>
-<soap:body use="literal"></soap:body>
-</input>
-<output>
-<soap:body use="literal"></soap:body>
-</output>
-</operation>
 <operation name="getUser">
 <soap:operation soapAction=""></soap:operation>
 <input>
@@ -75,7 +106,52 @@
 <soap:body use="literal"></soap:body>
 </output>
 </operation>
+<operation name="registerUser">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="findItemByDescription">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="newBid">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
 <operation name="getBar">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="revokeItem">
+<soap:operation soapAction=""></soap:operation>
+<input>
+<soap:body use="literal"></soap:body>
+</input>
+<output>
+<soap:body use="literal"></soap:body>
+</output>
+</operation>
+<operation name="offerItem">
 <soap:operation soapAction=""></soap:operation>
 <input>
 <soap:body use="literal"></soap:body>

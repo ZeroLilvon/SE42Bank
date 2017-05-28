@@ -1,8 +1,12 @@
 package webservice;
 
+import auction.domain.Bid;
+import auction.domain.Category;
 import auction.domain.Item;
 import auction.domain.User;
+import java.util.List;
 import javax.jws.WebService;
+import nl.fontys.util.Money;
 
 /**
  *
@@ -24,6 +28,22 @@ public class WebAuction {
     
     public Item getItem(Long id){
         return auction.getItem(id);
+    }
+    
+    public List<Item> findItemByDescription(String description) {
+        return auction.findItemByDescription(description);
+    }
+    
+        public Bid newBid(Item item, User buyer, Money amount){
+        return auction.newBid(item, buyer, amount);
+    }
+    
+    public Item offerItem(User seller, Category cat, String description){
+        return auction.offerItem(seller, cat, description);
+    }
+    
+    public boolean revokeItem(Item item){
+        return auction.revokeItem(item);
     }
     
     public String getBar(){

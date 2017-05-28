@@ -4,8 +4,13 @@ import java.io.*;
 import java.text.*;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Embeddable
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Money implements Serializable, Comparable {
 
 	private static final long serialVersionUID = 1L;

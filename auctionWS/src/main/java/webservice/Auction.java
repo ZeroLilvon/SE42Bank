@@ -31,16 +31,16 @@ public class Auction {
         return aucMgr.findItemByDescription(description);
     }
     
-//    public Bid newBid(Item item, User buyer, Money amount){
-//        return aucMgr.newBid(item, buyer, amount);
-//    }
-//    
-//    public Item offerItem(User seller, Category cat, String description){
-//        return sellMgr.offerItem(seller, cat, description);
-//    }
-//    
-//    public boolean revokeItem(Item item){
-//        return sellMgr.revokeItem(item);
-//    }
+    public Bid newBid(Item item, User buyer, Money amount){
+        return aucMgr.newBid(item, buyer, amount);
+    }
+    
+    public Item offerItem(User seller, Category cat, String description){
+        return sellMgr.offerItem(seller, cat, description);
+    }
+    
+    public boolean revokeItem(Item item){
+        return sellMgr.revokeItem(item);
+    }
     
 }

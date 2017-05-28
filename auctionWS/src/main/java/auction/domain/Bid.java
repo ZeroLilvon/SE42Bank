@@ -8,15 +8,22 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import nl.fontys.util.FontysTime;
 import nl.fontys.util.Money;
 
 @Entity
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Bid {
     
     @Id  
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @XmlTransient
     private FontysTime time;
     @ManyToOne (cascade = {CascadeType.REMOVE})
     private User buyer;
