@@ -13,6 +13,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import nl.fontys.util.Money;
 
 @Entity
@@ -21,6 +24,8 @@ import nl.fontys.util.Money;
     @NamedQuery(name = "Item.count", query = "select count(i) from Item as i"),
     @NamedQuery(name = "Item.findByDescription", query = "select i from Item as i where i.description = :itemDescription")
 })
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Item implements Comparable {
 
     @Id  
