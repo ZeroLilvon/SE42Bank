@@ -19,6 +19,10 @@ public class DatabaseCleaner {
     public DatabaseCleaner(EntityManager entityManager) {
         em = entityManager;
     }
+    
+    public boolean getIsOpen(){
+        return em.isOpen();
+    }
 
     public void clean() throws SQLException {
         em.getTransaction().begin();

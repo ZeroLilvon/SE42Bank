@@ -61,6 +61,9 @@ public class WebAuction {
     }
     
     public void requestTestCleanup(){
+        if(!DC.getIsOpen()){
+            DC = new DatabaseCleaner(emf.createEntityManager());
+        }
         try {
             DC.clean();
         }

@@ -22,7 +22,7 @@ import webservice.User;
  */
 public class ClientsideTest {
     
-    private String mail = "example@mail.net";
+    private String mailString = "example@mail.net";
     
     public ClientsideTest() {
     }
@@ -46,40 +46,31 @@ public class ClientsideTest {
     }
     
     @Test
-    public void cleanUpTest(){
-        User u = registerUser(mail);
-        assertTrue(1 == 1);
+    public void RegistrationTest(){
+        User u = registerUser(mailString);
+        assertTrue(mailString.equals(u.getEmail()));
+        User u2 = getUser(mailString);
+        assertTrue(u.getEmail().equals(u2.getEmail()));
     }
     
-//    @Test
-//    public void RegistrationTest(){
-//        // Temporary Registration tests
-//        System.out.println(getBar());
-//        User u = registerUser(mail);
-//        System.out.println(u.getEmail());
-//        User u2 = getUser(mail);
-//        System.out.println(u2.getEmail());
-//        
-//        
-//    }
-//    
-//    @Test
-//    public void AuctionTest(){
-//        User u = registerUser(mail);
-//        // Temporary Auction tests
-//        
-//        // Confirm no item with id 0 exists
-//        System.out.println(getItem(0L));
-//        
-//        // Add an item
-//        Category mycat = new Category();
-//        mycat.setDescription("exampleCat");
-//        Item i = offerItem(u, mycat, "A bar of soap");
-//        System.out.println(i.getCategory().getDescription());
-//        
-//        // Confirm item has been added
-//        Item i2 = getItem(i.getId());
-//    }
+    @Test
+    public void AuctionTest(){
+        User u = registerUser(mailString);
+        
+        // Confirm no item with id 0 exists
+        assertEquals(null, getItem(0L));
+        
+        // Add an item, check description and category
+        Category mycat = new Category();
+        mycat.setDescription("exampleCat");
+        Item i = offerItem(u, mycat, "A bar of soap");
+        assertTrue("A bar of soap".equals(i.getDescription()));
+        assertTrue("exampleCat".equals(i.getCategory().getDescription()));
+        
+        // Confirm item has been added
+        Item i2 = getItem(i.getId());
+        System.out.println(i2.getDescription());
+    }
 
     // <editor-fold defaultstate="collapsed" desc=" Registration section ">
     
