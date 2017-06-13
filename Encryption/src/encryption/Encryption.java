@@ -37,16 +37,16 @@ public class Encryption
             Key privateKey = kp.getPrivate();
             
             FileOutputStream fileOut = new FileOutputStream("PublicH");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(publicKey);
+            fileOut.write(publicKey.getEncoded());
+            fileOut.flush();
             fileOut.close();
-            out.close();
             
-             fileOut = new FileOutputStream("PrivateH");
-             out = new ObjectOutputStream(fileOut);
-            out.writeObject(privateKey);
+            
+            fileOut = new FileOutputStream("PrivateH");
+            fileOut.write(privateKey.getEncoded());
+            fileOut.flush();
             fileOut.close();
-            out.close();
+            
             
         } catch (NoSuchAlgorithmException ex)
         {
