@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  *
  * @author Riccardo
  */
-public class Apllicatie3
+public class Applicatie3
 {
      public static void main(String[] args)
     {
@@ -47,7 +47,7 @@ public class Apllicatie3
             Logger.getLogger(Verification.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex)
          {
-             Logger.getLogger(Apllicatie3.class.getName()).log(Level.SEVERE, null, ex);
+             Logger.getLogger(Applicatie3.class.getName()).log(Level.SEVERE, null, ex);
          }
     }
 }

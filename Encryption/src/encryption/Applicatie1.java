@@ -8,7 +8,6 @@ package encryption;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -20,12 +19,8 @@ import java.util.logging.Logger;
  *
  * @author Riccardo
  */
-public class Encryption
+public class Applicatie1
 {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args)
     {
         try
@@ -48,16 +43,15 @@ public class Encryption
             fileOut.close();
             
             
-        } catch (NoSuchAlgorithmException ex)
-        {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
         } catch (FileNotFoundException ex)
         {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Applicatie1.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex)
         {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            Logger.getLogger(Applicatie1.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex)
+        {
+            Logger.getLogger(Applicatie1.class.getName()).log(Level.SEVERE, null, ex);
+        } 
     }
-    
 }

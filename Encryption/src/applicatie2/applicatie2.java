@@ -5,7 +5,6 @@
  */
 package applicatie2;
 
-import encryption.Encryption;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -39,12 +38,9 @@ public class applicatie2
             
             
         } catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex)
-        {
-            Logger.getLogger(Encryption.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex)
+         {
+             Logger.getLogger(applicatie2.class.getName()).log(Level.SEVERE, null, ex);
+         } catch (Exception ex)
          {
              Logger.getLogger(applicatie2.class.getName()).log(Level.SEVERE, null, ex);
          }
