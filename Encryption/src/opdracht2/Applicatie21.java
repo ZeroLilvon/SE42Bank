@@ -11,6 +11,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.InvalidParameterSpecException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.BadPaddingException;
@@ -32,9 +33,7 @@ public class Applicatie21
     private final static int COUNT = 3313;
     
     private final static String TEXT = "Slime";
-    private final static String PASSWORD = "password";
-    private final static String ALGORITHM = "PBEWithMD5AndDES";
-    
+    private final static String PASSWORD = "password";    
 
     public static void main(String[] args)
     {
@@ -43,7 +42,7 @@ public class Applicatie21
             
             Encryptor encryptor = new Encryptor();
             byte[] salt = encryptor.generateSalt();
-            byte[] encryptedMessage = encryptor.encrypt(TEXT, PASSWORD, COUNT, ALGORITHM, salt);
+            byte[] encryptedMessage = encryptor.encrypt(TEXT, PASSWORD, COUNT, salt);
             
             encryptor.writeToFile("EncryptedH", salt, encryptedMessage);
             
@@ -70,6 +69,9 @@ public class Applicatie21
         {
             Logger.getLogger(Applicatie21.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex)
+        {
+            Logger.getLogger(Applicatie21.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InvalidParameterSpecException ex)
         {
             Logger.getLogger(Applicatie21.class.getName()).log(Level.SEVERE, null, ex);
         }

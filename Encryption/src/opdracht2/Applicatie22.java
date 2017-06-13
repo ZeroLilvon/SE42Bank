@@ -25,9 +25,7 @@ public class Applicatie22
     
     private final static int COUNT = 3313;
     
-    private final static String PASSWORD = "password";
-    private final static String ALGORITHM = "PBEWithMD5AndDES";
-    
+    private final static String PASSWORD = "password";    
     
     public static void main(String[] args)
     {
@@ -35,7 +33,7 @@ public class Applicatie22
         {
             Decryptor decryptor = new Decryptor();
             
-            String result = decryptor.decrypt("EncryptedH", PASSWORD, COUNT, ALGORITHM);
+            String result = decryptor.decrypt("EncryptedH", PASSWORD, COUNT);
             
             System.out.println(result);
             
